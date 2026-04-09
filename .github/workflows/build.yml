@@ -7,6 +7,10 @@ on:
     branches: [ main, master ]
   workflow_dispatch:  # 允许手动触发
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   build:
     runs-on: windows-latest
@@ -78,5 +82,4 @@ jobs:
         files: MermaidViewer-Plugin.zip
         draft: false
         prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}

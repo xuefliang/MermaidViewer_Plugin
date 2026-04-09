@@ -1,0 +1,81 @@
+name: Build MermaidViewer Plugin
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+    
+    - name: Verify mmdr.exe exists
+      shell: powershell
+      run: |
+        if (Test-Path "tools\mmdr\mmdr.exe") {
+          Write-Host "mmdr.exe found in repository"
+        } else {
+          Write-Error "mmdr.exe not found. Please add it to tools\mmdr\ directory."
+          exit 1
+        }
+    
+    - name: Restore NuGet packages
+      run: nuget restore MermaidViewer.sln || true
+    
+    - name: Build plugin (x64)
+      run: msbuild MermaidViewer.sln /p:Configuration=Release /p:Platform=x64 /m
+    
+    - name: Prepare release package
+      shell: powershell
+      run: |
+        # 创建发布目录
+        New-Item -ItemType Directory -Force -Path "release\MermaidViewer"
+        
+        # 复制 DLL
+        Copy-Item "src\bin\x64\Release\MermaidViewer.dll" -Destination "release\MermaidViewer\"
+        
+        # 复制 mmdr.exe
+        Copy-Item "tools\mmdr\mmdr.exe" -Destination "release\MermaidViewer\tools\mmdr\" -Force
+        
+        # 复制文档
+        Copy-Item "README.md" -Destination "release\MermaidViewer\"
+        Copy-Item "INSTALL.md" -Destination "release\MermaidViewer\"
+        Copy-Item "LICENSE" -Destination "release\MermaidViewer\" -ErrorAction SilentlyContinue
+        
+        # 复制示例
+        Copy-Item "examples" -Destination "release\MermaidViewer\" -Recurse
+        
+        # 创建 zip
+        Compress-Archive -Path "release\MermaidViewer" -DestinationPath "MermaidViewer-Plugin.zip"
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: MermaidViewer-Plugin
+        path: MermaidViewer-Plugin.zip
+    
+    - name: Create Release
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ github.run_number }}
+        name: MermaidViewer Plugin Build #${{ github.run_number }}
+        files: MermaidViewer-Plugin.zip
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

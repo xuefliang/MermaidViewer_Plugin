@@ -1,0 +1,16 @@
+classDiagram
+    class Animal {
+        +String name
+        +int age
+        +makeSound() String
+    }
+    class Dog {
+        +String breed
+        +bark() String
+    }
+    class Cat {
+        +boolean indoor
+        +meow() String
+    }
+    Animal <|-- Dog
+    Animal <|-- Cat

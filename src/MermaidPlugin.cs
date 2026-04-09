@@ -117,7 +117,7 @@ namespace MermaidViewer
                 "Preview Mermaid",
                 "Show Mermaid preview panel",
                 ShowPreview,
-                true, true, false, 'M' // Ctrl+Shift+M
+                true, true, false, 0x4D // Ctrl+Shift+M (M = 0x4D)
             ));
 
             // Refresh
@@ -125,7 +125,7 @@ namespace MermaidViewer
                 "Refresh Preview",
                 "Refresh the Mermaid preview",
                 RefreshPreview,
-                true, false, false, 'F5' // Ctrl+F5
+                true, false, false, 0x74 // Ctrl+F5 (F5 = 0x74)
             ));
 
             _menuItems.Add(new MenuItemBase()); // Separator

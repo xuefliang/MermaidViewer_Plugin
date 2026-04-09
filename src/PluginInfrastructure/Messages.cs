@@ -16,6 +16,7 @@ namespace MermaidViewer
         public const int NPPM_GETNBOPENFILES = NPPMSG_BASE + 26;
         public const int NPPM_GETOPENFILENAMELIST = NPPMSG_BASE + 27;
         public const int NPPM_GETOPENFILENAMES = NPPMSG_BASE + 28;
+        public const int NPPM_GETEXTPART = NPPMSG_BASE + 48;
 
         // Plugin management
         public const int NPPM_GETPLUGINSCONFIGDIR = NPPMSG_BASE + 23;
@@ -26,6 +27,7 @@ namespace MermaidViewer
         public const int NPPM_GETHWND = NPPMSG_BASE + 51;
         public const int NPPM_RELOADFILE = NPPMSG_BASE + 58;
         public const int NPPM_GETCURRENTBUFFERID = NPPMSG_BASE + 53;
+        public const int NPPM_GETCURRENTSCINTILLA = NPPMSG_BASE + 82;
 
         // Menu
         public const int NPPM_ADDTOOLBARICON = NPPMSG_BASE + 35;
@@ -36,11 +38,17 @@ namespace MermaidViewer
         public const int NPPM_DMMHIDE = NPPMSG_BASE + 63;
         public const int NPPM_SETMENUITEMCHECK = NPPMSG_BASE + 71;
         public const int NPPM_ADDMENUITEM = NPPMSG_BASE + 72;
+        public const int NPPM_MENUCOMMAND = NPPMSG_BASE + 79;
 
         // File operations
         public const int NPPM_GETFULLCURRENTPATH = NPPMSG_BASE + 85;
         public const int NPPM_GETCURRENTDIRECTORY = NPPMSG_BASE + 86;
         public const int NPPM_GETFILENAME = NPPMSG_BASE + 87;
+        public const int NPPM_SAVECURRENTFILE = NPPMSG_BASE + 100;
+        public const int NPPM_SAVEAS = NPPMSG_BASE + 101;
+        public const int NPPM_DOOPEN = NPPMSG_BASE + 37;
+        public const int NPPM_SETSTATUSBAR = NPPMSG_BASE + 83;
+        public const int NPPM_GETCURRENTLANGSEL = NPPMSG_BASE + 80;
 
         // Notifications
         public const int NPPN_READY = NPPN_FIRST + 1;

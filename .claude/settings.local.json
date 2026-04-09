@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(msbuild src/MermaidViewer.csproj /p:Configuration=Release /p:Platform=x64 /m)",
+      "Bash(git add:*)"
+    ]
+  }
+}

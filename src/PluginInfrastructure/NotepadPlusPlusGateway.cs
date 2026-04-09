@@ -149,7 +149,7 @@ namespace MermaidViewer
         /// </summary>
         public DialogResult ShowMessage(string message, string title, MessageBoxButtons buttons, MessageBoxIcon icon)
         {
-            return MessageBox.Show(new Form { Handle = _nppHandle }, message, title, buttons, icon);
+            return MessageBox.Show(message, title, buttons, icon);
         }
 
         /// <summary>

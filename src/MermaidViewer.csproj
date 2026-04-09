@@ -102,7 +102,9 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Rendering\MermaidRenderer.cs" />
+    <Compile Include="Rendering\SimpleSvgRenderer.cs" />
     <Compile Include="MermaidPlugin.cs" />
+    <Compile Include="MermaidSettings.cs" />
     <Compile Include="PluginInfrastructure\ResourceWatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

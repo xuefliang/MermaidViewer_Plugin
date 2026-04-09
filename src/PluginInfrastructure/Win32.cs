@@ -255,6 +255,9 @@ namespace MermaidViewer
         [DllImport("user32.dll")]
         public static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
 
+        [DllImport("user32.dll")]
+        public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
         public const int GW_HWNDPREV = 3;
     }
 }

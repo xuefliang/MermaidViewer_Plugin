@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -29,7 +30,6 @@ namespace MermaidViewer
         private System.Windows.Forms.Timer _debounceTimer;
         private bool _isRefreshing = false;
         private IntPtr _previewWindowHandle;
-        private bool _previewVisible = false;
 
         /// <summary>
         /// Plugin name
@@ -234,7 +234,6 @@ namespace MermaidViewer
             if (_previewWindowHandle != IntPtr.Zero)
             {
                 ShowDockableWindow(_previewWindowHandle);
-                _previewVisible = true;
             }
 
             // Auto-refresh on show
@@ -289,13 +288,12 @@ namespace MermaidViewer
             {
                 Win32.ShowWindow(_previewWindowHandle, 0); // SW_HIDE
             }
-            _previewVisible = false;
         }
 
         /// <summary>
         /// Refreshes the preview
         /// </summary>
-        public async void RefreshPreview()
+        public void RefreshPreview()
         {
             if (_isRefreshing || _previewForm == null)
                 return;
@@ -309,7 +307,7 @@ namespace MermaidViewer
 
                 if (string.IsNullOrWhiteSpace(text))
                 {
-                    _previewForm.RenderAsync("");
+                    _ = _previewForm.RenderAsync("");
                     return;
                 }
 
@@ -317,14 +315,18 @@ namespace MermaidViewer
                 if (_settings.AutoRefresh)
                 {
                     _debounceTimer?.Dispose();
-                    _debounceTimer = new Timer(async _ =>
+                    _debounceTimer = new System.Windows.Forms.Timer();
+                    _debounceTimer.Interval = _settings.RefreshDelayMs;
+                    _debounceTimer.Tick += async (s, e) =>
                     {
+                        _debounceTimer.Stop();
                         await _previewForm.RenderAsync(text);
-                    }, null, _settings.RefreshDelayMs, Timeout.Infinite);
+                    };
+                    _debounceTimer.Start();
                 }
                 else
                 {
-                    await _previewForm.RenderAsync(text);
+                    _ = _previewForm.RenderAsync(text);
                 }
             }
             finally
@@ -333,17 +335,17 @@ namespace MermaidViewer
             }
         }
 
-        private async void OnRefreshRequested(object sender, EventArgs e)
+        private void OnRefreshRequested(object sender, EventArgs e)
         {
             RefreshPreview();
         }
 
-        private async void OnExportSvgRequested(object sender, EventArgs e)
+        private void OnExportSvgRequested(object sender, EventArgs e)
         {
             ExportAsSvg();
         }
 
-        private async void OnExportPngRequested(object sender, EventArgs e)
+        private void OnExportPngRequested(object sender, EventArgs e)
         {
             ExportAsPng();
         }
@@ -592,9 +594,9 @@ namespace MermaidViewer
                 {
                     _fileWatcher = new ResourceWatcher(currentFile, () =>
                     {
-                        if (_settings.AutoRefresh)
+                        if (_settings.AutoRefresh && _previewForm != null)
                         {
-                            BeginInvoke(new Action(RefreshPreview));
+                            _previewForm.Invoke(new Action(RefreshPreview));
                         }
                     });
                 }

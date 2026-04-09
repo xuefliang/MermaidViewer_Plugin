@@ -417,7 +417,7 @@ namespace MermaidViewer.Forms
             byte[] pngData = await _renderer.RenderToPngAsync(_currentSvg, scale);
             if (pngData != null)
             {
-                await File.WriteAllBytesAsync(filePath, pngData);
+                await Task.Run(() => File.WriteAllBytes(filePath, pngData));
             }
         }
     }

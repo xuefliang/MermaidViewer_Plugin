@@ -35,7 +35,7 @@ namespace MermaidViewer
         [DllExport]
         public static IntPtr GetName()
         {
-            return Marshal.StringToHGlobalUni(MermaidPlugin.PluginBase.PluginName);
+            return Marshal.StringToHGlobalUni(MermaidPlugin.PluginName);
         }
 
         /// <summary>

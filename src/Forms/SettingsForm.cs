@@ -2,7 +2,6 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using MermaidSettings = MermaidViewer.MermaidSettings;
 
 namespace MermaidViewer.Forms
 {
@@ -11,14 +10,14 @@ namespace MermaidViewer.Forms
     /// </summary>
     public partial class SettingsForm : Form
     {
-        private MermaidSettings _settings;
+        private MermaidViewer.MermaidSettings _settings;
 
         /// <summary>
         /// Gets the modified settings
         /// </summary>
-        public MermaidSettings Settings => _settings;
+        public MermaidViewer.MermaidSettings Settings => _settings;
 
-        public SettingsForm(MermaidSettings settings)
+        public SettingsForm(MermaidViewer.MermaidSettings settings)
         {
             InitializeComponent();
             _settings = settings.Clone();
@@ -152,87 +151,6 @@ namespace MermaidViewer.Forms
             {
                 MessageBox.Show($"Failed to test mmdr.exe:\n\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-    }
-
-    /// <summary>
-    /// Plugin settings
-    /// </summary>
-    [Serializable]
-    public class MermaidSettings
-    {
-        public bool AutoRefresh { get; set; } = true;
-        public bool DarkMode { get; set; } = false;
-        public int RefreshDelayMs { get; set; } = 500;
-        public double DefaultPngScale { get; set; } = 2.0;
-        public string DefaultExportPath { get; set; } = "";
-        public string MmdrPath { get; set; } = "";
-        public bool FollowNotepadDarkMode { get; set; } = true;
-
-        /// <summary>
-        /// Creates a deep clone of the settings
-        /// </summary>
-        public MermaidSettings Clone()
-        {
-            return new MermaidSettings
-            {
-                AutoRefresh = AutoRefresh,
-                DarkMode = DarkMode,
-                RefreshDelayMs = RefreshDelayMs,
-                DefaultPngScale = DefaultPngScale,
-                DefaultExportPath = DefaultExportPath,
-                MmdrPath = MmdrPath,
-                FollowNotepadDarkMode = FollowNotepadDarkMode
-            };
-        }
-
-        /// <summary>
-        /// Saves settings to file
-        /// </summary>
-        public void Save(string filePath)
-        {
-            try
-            {
-                var directory = Path.GetDirectoryName(filePath);
-                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
-
-                var serializer = new System.Xml.Serialization.XmlSerializer(typeof(MermaidSettings));
-                using (var stream = File.Create(filePath))
-                {
-                    serializer.Serialize(stream, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Failed to save settings: {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Loads settings from file
-        /// </summary>
-        public static MermaidSettings Load(string filePath)
-        {
-            try
-            {
-                if (File.Exists(filePath))
-                {
-                    var serializer = new System.Xml.Serialization.XmlSerializer(typeof(MermaidSettings));
-                    using (var stream = File.OpenRead(filePath))
-                    {
-                        return (MermaidSettings)serializer.Deserialize(stream);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Failed to load settings: {ex.Message}");
-            }
-
-            return new MermaidSettings();
         }
     }
 }

@@ -85,11 +85,19 @@ namespace MermaidViewer
             return new SimpleMenuItem(name, description, callback, ctrl, alt, shift, key);
         }
 
+        /// <summary>
+        /// Creates a menu item separator
+        /// </summary>
+        public static MenuItemBase CreateSeparator()
+        {
+            return new SimpleMenuItem("---", "");
+        }
+
         private class SimpleMenuItem : MenuItemBase
         {
             private readonly Action _callback;
 
-            public SimpleMenuItem(string name, string description, Action callback)
+            public SimpleMenuItem(string name, string description = "", Action callback = null)
             {
                 _name = name;
                 _description = description;

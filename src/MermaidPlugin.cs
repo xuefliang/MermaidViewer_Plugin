@@ -128,7 +128,7 @@ namespace MermaidViewer
                 true, false, false, 0x74 // Ctrl+F5 (F5 = 0x74)
             ));
 
-            _menuItems.Add(new MenuItemBase()); // Separator
+            _menuItems.Add(MenuItemBase.CreateSeparator());
 
             // Export as SVG
             _menuItems.Add(MenuItemBase.Create(
@@ -144,7 +144,7 @@ namespace MermaidViewer
                 ExportAsPng
             ));
 
-            _menuItems.Add(new MenuItemBase()); // Separator
+            _menuItems.Add(MenuItemBase.CreateSeparator());
 
             // Previous diagram
             _menuItems.Add(MenuItemBase.Create(
@@ -160,7 +160,7 @@ namespace MermaidViewer
                 NextDiagram
             ));
 
-            _menuItems.Add(new MenuItemBase()); // Separator
+            _menuItems.Add(MenuItemBase.CreateSeparator());
 
             // Zoom controls
             _menuItems.Add(MenuItemBase.Create(
@@ -181,7 +181,7 @@ namespace MermaidViewer
                 ResetView
             ));
 
-            _menuItems.Add(new MenuItemBase()); // Separator
+            _menuItems.Add(MenuItemBase.CreateSeparator());
 
             // Settings
             _menuItems.Add(MenuItemBase.Create(

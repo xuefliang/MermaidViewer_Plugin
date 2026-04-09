@@ -23,31 +23,14 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
     
-    - name: Download mmdr.exe
+    - name: Verify mmdr.exe exists
       shell: powershell
       run: |
-        # 创建目录
-        New-Item -ItemType Directory -Force -Path "tools\mmdr"
-        
-        # 从 crates.io 下载最新版本
-        $latestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/1jehuang/mermaid-rs-renderer/releases/latest"
-        $downloadUrl = $latestRelease.assets | Where-Object { $_.name -like "*windows*" -or $_.name -like "*x86_64-pc-windows*" } | Select-Object -First 1 -ExpandProperty browser_download_url
-        
-        if ($downloadUrl) {
-          Invoke-WebRequest -Uri $downloadUrl -OutFile "tools\mmdr\mmdr.exe"
-          Write-Host "Downloaded mmdr.exe from release"
+        if (Test-Path "tools\mmdr\mmdr.exe") {
+          Write-Host "mmdr.exe found in repository"
         } else {
-          # 如果没有预编译版本，使用 cargo 安装
-          Write-Host "No pre-built binary found, building from source..."
-          
-          # 安装 Rust
-          Invoke-WebRequest -Uri "https://win.rustup.rs/x86_64" -OutFile "rustup-init.exe"
-          .\rustup-init.exe -y --default-toolchain stable --profile minimal
-          $env:Path += ";$env:USERPROFILE\.cargo\bin"
-          
-          # 编译 mmdr
-          cargo install mermaid-rs-renderer
-          Copy-Item "$env:USERPROFILE\.cargo\bin\mmdr.exe" -Destination "tools\mmdr\mmdr.exe"
+          Write-Error "mmdr.exe not found. Please add it to tools\mmdr\ directory."
+          exit 1
         }
     
     - name: Restore NuGet packages

@@ -111,28 +111,5 @@ namespace MermaidViewer
         }
     }
 
-    /// <summary>
-    /// Keyboard shortcut definition
-    /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
-    public struct ShortcutKey
-    {
-        public bool _isCtrl;
-        public bool _isAlt;
-        public bool _isShift;
-        public uint _key;
-
-        public ShortcutKey(bool isCtrl, bool isAlt, bool isShift, uint key)
-        {
-            _isCtrl = isCtrl;
-            _isAlt = isAlt;
-            _isShift = isShift;
-            _key = key;
-        }
-
-        public ShortcutKey(bool ctrl, bool alt, bool shift, char key)
-            : this(ctrl, alt, shift, (uint)key)
-        {
-        }
-    }
+    // ShortcutKey is defined in NativeDataStructs.cs
 }

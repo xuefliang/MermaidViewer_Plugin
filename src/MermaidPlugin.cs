@@ -16,7 +16,7 @@ namespace MermaidViewer
         /// <summary>
         /// Singleton instance of the plugin
         /// </summary>
-        public static new MermaidPlugin Plugin { get; private set; }
+        public static MermaidPlugin Plugin { get; private set; }
 
         /// <summary>
         /// Plugin version
@@ -26,7 +26,7 @@ namespace MermaidViewer
         private MermaidPreviewForm _previewForm;
         private MermaidSettings _settings;
         private ResourceWatcher _fileWatcher;
-        private Timer _debounceTimer;
+        private System.Windows.Forms.Timer _debounceTimer;
         private bool _isRefreshing = false;
         private IntPtr _previewWindowHandle;
         private bool _previewVisible = false;

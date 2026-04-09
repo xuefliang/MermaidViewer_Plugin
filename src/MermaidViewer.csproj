@@ -76,10 +76,12 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PluginInfrastructure\MenuItemBase.cs" />
     <Compile Include="PluginInfrastructure\NativeDataStructs.cs" />
+    <Compile Include="PluginInfrastructure\DllExportAttribute.cs" />
     <Compile Include="PluginInfrastructure\NotepadPPDTO.cs" />
     <Compile Include="PluginInfrastructure\PluginBase.cs" />
     <Compile Include="PluginInfrastructure\ScintillaGateway.cs" />

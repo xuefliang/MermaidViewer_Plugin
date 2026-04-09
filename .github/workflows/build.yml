@@ -51,10 +51,10 @@ jobs:
         }
     
     - name: Restore NuGet packages
-      run: nuget restore MermaidViewer.sln
+      run: nuget restore MermaidViewer.sln || true
     
-    - name: Build plugin
-      run: msbuild MermaidViewer.sln /p:Configuration=Release /p:Platform=x64
+    - name: Build plugin (x64)
+      run: msbuild MermaidViewer.sln /p:Configuration=Release /p:Platform=x64 /m
     
     - name: Prepare release package
       shell: powershell

@@ -78,37 +78,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="src\PluginInfrastructure\MenuItemBase.cs" />
-    <Compile Include="src\PluginInfrastructure\NativeDataStructs.cs" />
-    <Compile Include="src\PluginInfrastructure\NotepadPPDTO.cs" />
-    <Compile Include="src\PluginInfrastructure\PluginBase.cs" />
-    <Compile Include="src\PluginInfrastructure\ScintillaGateway.cs" />
-    <Compile Include="src\PluginInfrastructure\UnManagedExports.cs" />
-    <Compile Include="src\PluginInfrastructure\Win32.cs" />
-    <Compile Include="src\PluginInfrastructure\NotepadPlusPlusGateway.cs" />
-    <Compile Include="src\PluginInfrastructure\Messages.cs" />
-    <Compile Include="src\Forms\MermaidPreviewForm.cs">
+    <Compile Include="PluginInfrastructure\MenuItemBase.cs" />
+    <Compile Include="PluginInfrastructure\NativeDataStructs.cs" />
+    <Compile Include="PluginInfrastructure\NotepadPPDTO.cs" />
+    <Compile Include="PluginInfrastructure\PluginBase.cs" />
+    <Compile Include="PluginInfrastructure\ScintillaGateway.cs" />
+    <Compile Include="PluginInfrastructure\UnManagedExports.cs" />
+    <Compile Include="PluginInfrastructure\Win32.cs" />
+    <Compile Include="PluginInfrastructure\NotepadPlusPlusGateway.cs" />
+    <Compile Include="PluginInfrastructure\Messages.cs" />
+    <Compile Include="Forms\MermaidPreviewForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="src\Forms\MermaidPreviewForm.Designer.cs">
+    <Compile Include="Forms\MermaidPreviewForm.Designer.cs">
       <DependentUpon>MermaidPreviewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\Forms\SettingsForm.cs">
+    <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="src\Forms\SettingsForm.Designer.cs">
+    <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="src\Rendering\MermaidRenderer.cs" />
-    <Compile Include="src\MermaidPlugin.cs" />
-    <Compile Include="src\PluginInfrastructure\ResourceWatcher.cs" />
+    <Compile Include="Rendering\MermaidRenderer.cs" />
+    <Compile Include="MermaidPlugin.cs" />
+    <Compile Include="PluginInfrastructure\ResourceWatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="src\Forms\MermaidPreviewForm.resx">
+    <EmbeddedResource Include="Forms\MermaidPreviewForm.resx">
       <DependentUpon>MermaidPreviewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="src\Forms\SettingsForm.resx">
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
